@@ -69,14 +69,16 @@ function mousePressed() {
 
 function myFunction() {
   if ((pointTracker > numPoints - 1)&& !(initialPointFlag)) {
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 20000; i++) {
 	 //Put halving logic in here
+	 var randomNum= floor(random(1, numPoints+1));
 	 //Time out with seperate function to generate points for cool factor?
-	 var x = (pointArray[0].posX + currentPoint.x) / 2;
-	 var y = (pointArray[0].posY + currentPoint.y) / 2;
+	 var x = (pointArray[randomNum-1].posX + currentPoint.x) / 2;
+	 var y = (pointArray[randomNum-1].posY + currentPoint.y) / 2;
 	 point(x, y);
 	 currentPoint.x=x;
 	 currentPoint.y=y;
+	 //console.log(randomNum);
     }
   } else {
     console.log("Select initial fixed points first");
