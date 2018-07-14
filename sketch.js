@@ -4,6 +4,8 @@ var pointTracker = 0;
 //Number of fixed point, eventually have this be set by user
 var numPoints = 3;
 
+var initialPointFlag=true;
+
 //Array of five variables name to be used as reference variables for fixed point objects
 /*var pointArray = [
   "pointOne",
@@ -43,7 +45,13 @@ function mousePressed() {
 	 pointTracker++;
 	 //console.log(arrayElement);
 	 
-    } else {
+    } else if(pointTracker>=numPoints) {
+	 //initial point logic
+
+	 if(initialPointFlag){
+		 console.log("Pretending to call initial point method");
+		 initialPointFlag=false;
+	 }
 	 console.log("Too many fixed points");
 	 console.log(pointArray);
     }
