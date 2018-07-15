@@ -2,7 +2,11 @@
 var pointTracker = 0;
 
 //Number of fixed point, eventually have this be set by user
-var numPoints = 3;
+var numPoints = 5;
+
+iterations=20;
+
+processStarted=false;
 
 //flag for only allowing one starting point to be placed
 var initialPointFlag=true;
@@ -12,11 +16,37 @@ var pointArray=[];
 
 function setup() {
   // put setup code here
-  createCanvas(920, 500);
+  var myCanvas=createCanvas(1200, 475);
+  myCanvas.parent('myContainer');
   background(100);
+
+  //Creating Slider
+  numSlider = createSlider(2, 8, 3, 0);
+  numSlider.position(width/2-40,height+50);
+  numSlider.style('width', '150px');
+
+  //Grid Layout
+  var z=0
+  for (var x = 0; x < width; x += width / 20) {
+    for (var y = 0; y < height; y += height / 10) {
+        stroke(0);
+        strokeWeight(1);
+        line(x, 0, x, height);
+        line(0, y, width, y);
+    }
+}
 }
 
-function draw() {}
+function draw() {
+    numPoints= floor(numSlider.value());
+    
+    if(processStarted){
+        document.getElementById("cell1").innerHTML="Current Iterations";
+        document.getElementById("cell2").innerHTML=iterations-20;
+    }else{
+        document.getElementById("cell2").innerHTML=numPoints;
+    }
+}
 
 //Constructor for fixed points
 function CreatePoint(posX, posY) {
@@ -69,17 +99,23 @@ function mousePressed() {
 
 function myFunction() {
   if ((pointTracker > numPoints - 1)&& !(initialPointFlag)) {
-    for (i = 0; i < 20000; i++) {
+    processStarted=true;
+    for (i = 0; i < iterations; i++) {
 	 //Put halving logic in here
 	 var randomNum= floor(random(1, numPoints+1));
 	 //Time out with seperate function to generate points for cool factor?
 	 var x = (pointArray[randomNum-1].posX + currentPoint.x) / 2;
-	 var y = (pointArray[randomNum-1].posY + currentPoint.y) / 2;
+     var y = (pointArray[randomNum-1].posY + currentPoint.y) / 2;
 	 point(x, y);
 	 currentPoint.x=x;
 	 currentPoint.y=y;
-	 //console.log(randomNum);
+     //console.log(randomNum);
     }
+    if(iterations<=24000){
+        iterations=iterations+200;
+        setTimeout(myFunction, 1500);
+    }
+       
   } else {
     console.log("Select initial fixed points first");
   }
