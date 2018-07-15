@@ -135,7 +135,7 @@ function plotterFunction() {
       var x = (pointArray[randomNum - 1].posX + currentPoint.x) / 2;
       var y = (pointArray[randomNum - 1].posY + currentPoint.y) / 2;
       point(x, y);
-      //Saving these x and y values in currentPoint storage objects for next iteration
+      //Saving these x and y values in currentPoint storage object for next iteration
       currentPoint.x = x;
       currentPoint.y = y;
     }
