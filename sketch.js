@@ -1,21 +1,24 @@
-//Tracks number of user selected fixed points
-var pointTracker = 0;
+//Used as index value for pointArray, tracks number of large points placed by user
+var lgPointTracker = 0;
 
-//Number of fixed point, eventually have this be set by user
-var numPoints = 5;
+//Number of large fixed points this is set by user by adjusting the slider
+var numLgPoints;
 
+//Initial number of loop iterations for the loop generating the small points 
 iterations = 20;
 
-processStarted = false;
+//Flag for when to change number of string points to iteration count
+plotterStarted = false;
 
-//flag for only allowing one starting point to be placed
+//Flag for only allowing one starting point to be placed
 var initialPointFlag = true;
 
-//Array to be used for reference variables for fixed point objects
+//Array to be used for reference variables for large fixed point objects
 var pointArray = [];
 
+
 function setup() {
-  // put setup code here
+  //Creating canvas and setting html element id
   var myCanvas = createCanvas(1200, 475);
   myCanvas.parent("myContainer");
   background(100);
@@ -25,7 +28,8 @@ function setup() {
   numSlider.position(width / 2 - 40, height + 50);
   numSlider.style("width", "150px");
 
-  //lines need to be in even number increments
+  //Generating the grid
+  //If adjusted lines need to be in even number increments
   var numVertLines = 20;
   var numHorLines = 10;
   for (var x = 0; x < width; x += width / numVertLines) {
@@ -51,13 +55,15 @@ function setup() {
 }
 
 function draw() {
-  numPoints = floor(numSlider.value());
+  //Getting user selected number for large fixed points  
+  numLgPoints = floor(numSlider.value());
 
-  if (processStarted) {
+  //Changing number of points to current iterations when user has started the plotting function
+  if (plotterStarted) {
     document.getElementById("cell1").innerHTML = "Current Iterations";
     document.getElementById("cell2").innerHTML = iterations - 20;
   } else {
-    document.getElementById("cell2").innerHTML = numPoints;
+    document.getElementById("cell2").innerHTML = numLgPoints;
   }
 }
 
@@ -67,8 +73,8 @@ function CreatePoint(posX, posY) {
   this.posY = posY;
 }
 
+//Creating initial small point
 function CreateInitialPoint(posX, posY) {
-  console.log("inside create initial point method");
   point(posX, posY);
   //set currentpt object's x and y
   currentPoint.x = posX;
@@ -76,57 +82,71 @@ function CreateInitialPoint(posX, posY) {
   return;
 }
 
+//currentPoint is used as a storage object where the current x and y values
+//of small points are held for the next calculation
 var currentPoint = {
   x: 0,
   y: 0
 };
 
+//Based on mouse-press event
 function mousePressed() {
+  //If the user is inside canvas  
   if (mouseX < width && mouseY < height) {
-    if (pointTracker <= numPoints - 1) {
-      var i = pointTracker;
+    //If the user has not picked enough large fixed points
+    if (lgPointTracker <= numLgPoints - 1) {
+      //Creating new large point object and storing in pointArray  
+      var i = lgPointTracker;
       pointArray.push(new CreatePoint(mouseX, mouseY));
       stroke(255);
       ellipse(pointArray[i].posX, pointArray[i].posY, 15, 15);
       fill(255);
-      console.log(pointArray[i]);
-      pointTracker++;
-    } else if (pointTracker >= numPoints) {
+      lgPointTracker++;
+      //If the user has picked enough large fixed points
+    } else if (lgPointTracker >= numLgPoints) {
+      //If the user has picked all large fixed points but not small initial point 
       if (initialPointFlag) {
-        //initial point logic
-        //console.log("Pretending to call initial point method");
         CreateInitialPoint(mouseX, mouseY);
         initialPointFlag = false;
       }
+      //If user has picked all points large and small
       console.log("Too many fixed points");
-      console.log(initialPointFlag);
-      console.log(pointArray);
     }
   } else {
-    if (pointTracker <= numPoints - 1) {
+    //If user is outside canvas and has not picked enough points  
+    if (lgPointTracker <= numLgPoints - 1) {
       console.log("Please click inside the canvas area");
     }
   }
 }
 
-function myFunction() {
-  if (pointTracker > numPoints - 1 && !initialPointFlag) {
-    processStarted = true;
+
+//Based on button press
+function plotterFunction() {
+  //If all large fixed points and one small fixed point have been picked  
+  if (lgPointTracker > numLgPoints - 1 && !initialPointFlag) {
+    //Flag for changing number of starting points to current iterations  
+    plotterStarted = true;
     for (i = 0; i < iterations; i++) {
-      //Put halving logic in here
-      var randomNum = floor(random(1, numPoints + 1));
-      //Time out with seperate function to generate points for cool factor?
+      //Math Logic
+      //Picking a random large fixed point
+      var randomNum = floor(random(1, numLgPoints + 1));
+      //Using midpoint formula to place new small point between large point and current small point
       var x = (pointArray[randomNum - 1].posX + currentPoint.x) / 2;
       var y = (pointArray[randomNum - 1].posY + currentPoint.y) / 2;
       point(x, y);
+      //Saving these x and y values in currentPoint storage objects for next iteration
       currentPoint.x = x;
       currentPoint.y = y;
-      //console.log(randomNum);
     }
+    //If current iteration less than 24000 re-run plotter loop with increased iteration amount after 1.5 seconds
+    //This is done purely for effect and if needed you could change "iterations" in the for loop to 24000 and
+    //get rid of this if statement to get much faster results.
     if (iterations <= 24000) {
       iterations = iterations + 200;
-      setTimeout(myFunction, 1500);
+      setTimeout(plotterFunction, 1500);
     }
+    //If user has not selected all points big and small
   } else {
     console.log("Select initial fixed points first");
   }
