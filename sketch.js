@@ -25,16 +25,29 @@ function setup() {
   numSlider.position(width/2-40,height+50);
   numSlider.style('width', '150px');
 
-  //Grid Layout
-  var z=0
-  for (var x = 0; x < width; x += width / 20) {
-    for (var y = 0; y < height; y += height / 10) {
-        stroke(0);
-        strokeWeight(1);
+    //lines need to be in even number increments
+    var numVertLines=20;
+    var numHorLines=10;
+    for (var x = 0; x < width; x += width / numVertLines) {
         line(x, 0, x, height);
-        line(0, y, width, y);
+            if(x==(width/numVertLines)*((numVertLines/2)-1)){
+                stroke(200);
+                strokeWeight(1);
+            }else{
+                stroke(0);
+                strokeWeight(1);
+            }
     }
-}
+    for (var y = 0; y < height; y += height / numHorLines) {
+        line(0, y, width, y);
+            if(y==(height/numHorLines)*((numHorLines/2)-1)){
+                stroke(200);
+                strokeWeight(1);
+            }else{
+                stroke(0);
+                strokeWeight(1);
+            }
+    }
 }
 
 function draw() {
