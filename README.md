@@ -3,6 +3,7 @@
 ### About
 - Chaos Game is based on the mathematical subset of Chaos Theory related to fractal generation.
 - This application is best used to demonstrate the Sierpinski Triangle as pictured below.
+- This application works by having the user pick n number of fixed points and a small plotting dot. The application then picks a random fixed point and creates a new plotting dot half way between the fixed point and the previous plotting dot. This process is then continued over 24,000 iterations.
 
 ### Example
 - Here&apos;s an example of the Sierpinski Triangle plotted using Chaos Game
