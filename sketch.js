@@ -5,10 +5,10 @@ var lgPointTracker = 0;
 var numLgPoints;
 
 //Initial number of loop iterations for the loop generating the small points 
-iterations = 20;
+var iterations = 20;
 
 //Flag for when to change number of string points to iteration count
-plotterStarted = false;
+var plotterStarted = false;
 
 //Flag for only allowing one starting point to be placed
 var initialPointFlag = true;
