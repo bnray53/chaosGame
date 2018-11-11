@@ -16,17 +16,16 @@ var initialPointFlag = true;
 //Array to be used for reference variables for large fixed point objects
 var pointArray = [];
 
+var numSlider;
+
 
 function setup() {
   //Creating canvas and setting html element id
   var myCanvas = createCanvas(1200, 475);
   myCanvas.parent("myContainer");
   background(100);
-
-  //Creating Slider
-  numSlider = createSlider(2, 8, 3, 0);
-  numSlider.position(width / 2 - 40, height + 50);
-  numSlider.style("width", "150px");
+  
+ 
 
   //Generating the grid
   //If adjusted lines need to be in even number increments
@@ -52,11 +51,14 @@ function setup() {
       strokeWeight(1);
     }
   }
+
+   //Starting points slider
+   numSlider=document.getElementById("startingPtSlider");
 }
 
 function draw() {
   //Getting user selected number for large fixed points  
-  numLgPoints = floor(numSlider.value());
+  numLgPoints = numSlider.value-1;
 
   //Changing number of points to current iterations when user has started the plotting function
   if (plotterStarted) {
