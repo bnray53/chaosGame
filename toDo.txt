@@ -1,16 +1,24 @@
 Things To Do:
 
-Configure so canvas is set automatically to device width
+DONE-Configure so canvas is set automatically to device width
+--use same logic from langonts ant
 
 Add writeup about the math behind the process
 
-Write some kind of horizontal control panel for adjusting and displpaying various parameters to replace the single paragraph cells
+DONE-Write some kind of horizontal control panel for adjusting and displpaying various parameters to replace the single paragraph cells
 
 Add aditional pages for Mandlebrot Set, Cantor Set, Koch Lines, and Barnselys Fern
 
 Have display for error message that are currently being logged to console 
 
-Allow user control over speed of iterations
+Decided Against-Allow user control over speed of iterations
 
-Add snapping to grid
+Decided Against-Add snapping to grid option
 
+DONE-Disable slider after use
+
+Decided Against-Add coordinates
+
+Decided Against-Instant result vs timed result option
+
+Implement cross-hair system
