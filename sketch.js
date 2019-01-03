@@ -63,13 +63,28 @@ function draw() {
         }
         //If mouse is inside grid
         if((mouseX>0&&(mouseX<width))&&(mouseY>0&&(mouseY<height))){
-            //Horizontal cross-hair Line
-            line(0,mouseY,width,mouseY);
-            stroke(255);
             //Vertical cross-hair Line
-            line(mouseX,0,mouseX,height);
-            stroke(255);
-        }  
+            
+            //If any large points exist on this line
+            if(checkMatchX(mouseX)){
+                stroke("green");
+                line(mouseX,0,mouseX,height);   
+            }else{
+                stroke(255);
+                line(mouseX,0,mouseX,height);   
+            }
+
+            //Horizontal cross-hair Line
+
+            //If any large points exist on this line
+            if(checkMatchY(mouseY)){
+                stroke("green");
+                line(0,mouseY,width,mouseY);   
+            }else{
+                stroke(255);
+                line(0,mouseY,width,mouseY); 
+            }
+        }      
     }
     //If all large points have been placed
     if(lgPointTracker==numLgPoints){
@@ -84,7 +99,6 @@ function draw() {
             }
             crossHairFlag=true;
         }
-        
     }
 }
 
@@ -177,4 +191,28 @@ function plotterFunction() {
     } else {
         console.log("Select initial fixed points first");
     }
+}
+
+//Checks if any large points exist on a given x axis line
+//Returns true if point exists, false if no points exist
+function checkMatchX(x){
+    var x=x;
+    for(var i=0;i<lgPointTracker;i++){
+        if(x==pointArray[i].posX){
+            return true;
+        }
+    }
+    return false;
+}
+
+//Checks if any large points exist on a given y axis line
+//Returns true if point exists, false if no points exist
+function checkMatchY(y){
+    var y=y;
+    for(var i=0;i<lgPointTracker;i++){
+        if(y==pointArray[i].posY){
+            return true;
+        }
+    }
+    return false;
 }
