@@ -16,6 +16,7 @@
 ### How To
 - Select the desired number of points.
 - Place you&apos;re selected points anywhere on the canvas.
+- Use the cross-hair system to line-up points precisely.
 - Pick a starting dot.
 - Hit the start button.
-- To reset the game hit the reset button
+- To reset the game hit the reset button.
