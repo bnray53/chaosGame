@@ -8,7 +8,7 @@
 ### Example
 - Here&apos;s an example of the Sierpinski Triangle plotted using Chaos Game
 
-![picture of Sierpinski Triangle](https://github.com/bnray53/chaosGame/blob/master/2018-07-15.png)
+![picture of Sierpinski Triangle](https://github.com/bnray53/chaosGame/blob/master/2019-01-03(1).png)
 
 ### Live Demo
 [Chaos Game](http://www.biketq.com/chaosGame.html "Chaos Game")
