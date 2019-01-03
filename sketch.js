@@ -24,7 +24,7 @@ var crossHairFlag=false;
 
 function setup() {
     //Creating canvas that is responsive to screen dimensions
-    var myCanvas = createCanvas((floor(window.innerWidth-50)), (floor(window.innerHeight-135)));
+    var myCanvas = createCanvas((floor(window.innerWidth-50)), (floor(window.innerHeight-145)));
     myCanvas.parent("myContainer");
     background(100);
 
@@ -33,20 +33,19 @@ function setup() {
 }
 
 function draw() {
-    //Getting user selected number for large fixed points before the plotter starts 
-    if(!plotterStarted){
-        numLgPoints = numSlider.value - 1;
-    }
+    //Getting user selected number for large fixed points before the plotter starts   
+    numLgPoints = numSlider.value - 1;
 
-
-    //Changing number of points to current iterations when user has started the plotting function
-    if (plotterStarted) {
-        document.getElementById("cell5").innerHTML = "Current Iterations";
-        document.getElementById("cell6").innerHTML = iterations - 20;
-    } else if(crossHairFlag&&initialPointFlag){
-        document.getElementById("cell6").innerHTML = "Please Place Starting Point";
+    //Changing cell2 and cell1 to appropriate data
+    if (plotterStarted&&(iterations>24000)) {
+        document.getElementById("cell2").innerHTML = "Program Complete";
+    } else if(plotterStarted) {
+        document.getElementById("cell1").innerHTML = "Current Iterations";
+        document.getElementById("cell2").innerHTML = iterations - 20;
+    } else if(crossHairFlag&&initialPointFlag) {
+        document.getElementById("cell2").innerHTML = "Please Place Starting Point";
     } else {
-        document.getElementById("cell6").innerHTML = numLgPoints;
+        document.getElementById("cell2").innerHTML = numLgPoints;
     }
 
     //Cross-Hair system
@@ -63,9 +62,10 @@ function draw() {
         }
         //If mouse is inside grid
         if((mouseX>0&&(mouseX<width))&&(mouseY>0&&(mouseY<height))){
+            
             //Vertical cross-hair Line
             
-            //If any large points exist on this line
+            //If any large points exist on this line in x direction
             if(checkMatchX(mouseX)){
                 stroke("green");
                 line(mouseX,0,mouseX,height);   
@@ -76,7 +76,7 @@ function draw() {
 
             //Horizontal cross-hair Line
 
-            //If any large points exist on this line
+            //If any large points exist on this line in y direction
             if(checkMatchY(mouseY)){
                 stroke("green");
                 line(0,mouseY,width,mouseY);   
@@ -117,14 +117,14 @@ function CreatePoint(posX, posY) {
 //Creating initial small point
 function CreateInitialPoint(posX, posY) {
     point(posX, posY);
-    //set currentpt object's x and y
+    //Set currentpt object's x and y
     currentPoint.x = posX;
     currentPoint.y = posY;
     return;
 }
 
-//currentPoint is used as a storage object where the current x and y values
-//of small points are held for the next calculation
+/*CurrentPoint is used as a storage object where the current x and y values
+of small points are held for the next calculation*/
 var currentPoint = {
     x: 0,
     y: 0
@@ -136,6 +136,8 @@ function mousePressed() {
     if((mouseX>0&&(mouseX<width))&&(mouseY>0&&(mouseY<height))){ 
         //If the user has not picked enough large fixed points
         if (lgPointTracker <= numLgPoints - 1) {
+            //Disable slider to prevent numLgPoints changing
+            document.getElementById("startingPtSlider").disabled = true; 
             //Creating new large point object and storing in pointArray  
             var i = lgPointTracker;
             pointArray.push(new CreatePoint(mouseX, mouseY));
@@ -161,10 +163,12 @@ function mousePressed() {
     }
 }
 
-//Based on button press
+//Based on start button press
 function plotterFunction() {
     //If all large fixed points and one small fixed point have been picked  
     if (lgPointTracker > numLgPoints - 1 && !initialPointFlag) {
+        //Disable start button
+        document.getElementById("startButton").disabled = true; 
         //Flag for changing number of starting points to current iterations  
         plotterStarted = true;
         for (i = 0; i < iterations; i++) {
@@ -179,12 +183,12 @@ function plotterFunction() {
             currentPoint.x = x;
             currentPoint.y = y;
        }
-        //If current iteration less than 24000 re-run plotter loop with increased iteration amount after 1.5 seconds
+        //If current iteration less than 24000 re-run plotter loop with increased iteration amount after .5 seconds
         //This is done purely for effect and if needed you could change "iterations" in the for loop to 24000 and
         //get rid of this if statement to get much faster results.
         if (iterations <= 24000) {
             iterations = iterations + 200;
-            setTimeout(plotterFunction, 1000);
+            setTimeout(plotterFunction, 500);
         }
 
     //If user has not selected all points big and small

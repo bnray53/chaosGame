@@ -17,6 +17,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
+
     <style>
         body {
             padding: 0;
@@ -25,9 +26,16 @@
         }
 
         #myContainer {
-            border: 1px solid white;
+            border-right: 1px solid white;
+            border-left: 1px solid white;
+            border-top: 1px solid white;
             margin: 0px;
             padding: 0px;
+        }
+
+        .controlPanel{
+            background-color: rgb(63, 63, 63);
+            border: 2px dashed rgb(192, 192, 49);
         }
 
         #readOut {
@@ -43,17 +51,31 @@
             padding: 0px;
         }
 
+        #mainBody{
+            color: white;
+        }
+
+        #footer a{
+            color: white;
+        }
+        #footer{
+            padding-top: 50px;
+            padding-bottom: 10px;;
+        }
+
     </style>
+
     <script src="p5.min.js"></script>
     <script src="p5.dom.min.js"></script>
     <script src="sketch.js"></script>
+
 </head>
 
 <body>
-    <div class="container-fluid text-center" id="readout">
+    <div class="container-fluid text-center">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default" onclick="plotterFunction()">Start</button>
+                <button type="button" class="btn btn-default" id="startButton" onclick="plotterFunction()">Start</button>
             </div>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" onclick="window.location.reload()">Reset</button>
@@ -85,15 +107,44 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
                             <p>
-                                <input type="range" min="3" max="8" step="1" value="3" id="startingPtSlider">
+                                <input type="range" min="3" max="8" step="1" value="4" id="startingPtSlider">
                             </p>
-                            <p id="cell5">Number of Starting Points</p>
-                            <p id="cell6">&nbsp;</p>
+                            <p id="cell1">Number of Starting Points</p>
+                            <p id="cell2">&nbsp;</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!--Main body-->  
+        <div class="container-fluid" id="mainBody">
+            <h1>Chaos Game</h1>
+            <p class="text-left">
+                Chaos Game is a mathematical simulation used to generate fractal patterns, it is a subset of the field of study called chaos theory. These patterns exhibit self-similar tendencies where patterns created are often smaller version of the starting shape. The rules to this game are simple. 
+            </p>
+
+            <p class="text-left">
+                <ol class="text-left">
+                    <li>N number of large starting points, or vertices, are chosen and placed on the board.</li>
+                    <li>A small point is then placed anywhere on the board.</li>
+                    <li>After this setup is complete the game is started. A random vertex is chosen and a new small point is placed half-way in-between this random vertex and the initial small point.</li>
+                    <li>This new small point is then used in the same way as the initial small point. Another random vertex is chosen and a new small point is placed half-way in-between this random vertex and our new small point.</half-way></li>
+                    <li>This process continues for as long as the player wants.</li>
+                </ol>
+            </p>
+
+            <p class="text-left">
+                Different versions of Chaos Game may choose a different ratio of where the small points are placed. Common ratios include 1/2(as shown with this program), 2/5, 3/8, and many others. All of these ratios, coupled with choosing different numbers of starting vertices, will produce different fractal patterns. Using a ratio of 1/2 with 3 starting vertices arranged in an equilateral triangle will produce a fractal pattern known as the Sierpinski triangle. The Sierpinski triangle was first described by Polish mathematician Waclaw Sierpinski in the early 1900's, but examples of similar patterns have been shown much early in a number of churches and cathedrals in Europe. Some of these examples date back to medieval times. 
+            </p>
+
+            <p>&nbsp;</p>
+            
+        </div>
+
+        <footer class="container text-center ft-1" id="footer">
+                <a href="https://www.linkedin.com/in/bnray53">Developer</a>
+        </footer> 
+        
     </div>
 </body>
 

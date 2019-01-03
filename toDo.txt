@@ -3,7 +3,7 @@ Things To Do:
 DONE-Configure so canvas is set automatically to device width
 --use same logic from langonts ant
 
-Add writeup about the math behind the process
+DONE-Add writeup about the math behind the process
 
 DONE-Write some kind of horizontal control panel for adjusting and displpaying various parameters to replace the single paragraph cells
 
@@ -22,3 +22,7 @@ Decided Against-Add coordinates
 Decided Against-Instant result vs timed result option
 
 DONE-Implement cross-hair system
+
+DONE-Disable start button on plotterStart
+
+Add ability for user to change division ratio
