@@ -11,7 +11,7 @@
 ![picture of Sierpinski Triangle](https://github.com/bnray53/chaosGame/blob/master/triangle.png)
 
 ### Live Demo
-[Chaos Game](http://www.biketq.com/chaosGame.html "Chaos Game")
+[Chaos Game](https://bnray53.github.io/chaosGame/index "Chaos Game")
 
 ### How To
 - Select the desired number of points.
